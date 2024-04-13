@@ -68,7 +68,7 @@ function App() {
       <div className='movie-container'>
         {movies.map((movie, index) => (
           <LazyLoad key={movie.id}>
-            <div className='movie' style={{ backgroundImage: `url(${movie.imageUrl})` }}>
+            <div className='movie' style={{ backgroundImage: `url(${movie.imageUrl})` }} onClick={() => { window.location.href = `https://vidsrc.net/embed/${movie.id}` }}>
             </div>
           </LazyLoad>
         ))}
