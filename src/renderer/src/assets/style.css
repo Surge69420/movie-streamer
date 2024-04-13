@@ -1,5 +1,11 @@
+.movie-container {
+    display: flex; /* Use flexbox */
+    flex-wrap: wrap; /* Allow wrapping to create multiple lines */
+    justify-content: space-around; /* Distribute items evenly along the main axis */
+}
 .movie {
-    display: inline-block;
-    width: 20vw;
-    height: 20vw;
+    width: 10vw;
+    height: 10vw;
+    background-size: cover;
+    margin: 2vw;
 }

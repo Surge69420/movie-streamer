@@ -4,6 +4,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
 let mainWindow;
+app.disableHardwareAcceleration()
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -15,7 +16,7 @@ function createWindow() {
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
-      nodeIntegration: true
+      nodeIntegration: true,
     }
   })
 
@@ -53,7 +54,7 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', async () => {
-    const url = 'https://imdb8.p.rapidapi.com/title/v2/get-popular?first=20';
+    const url = 'https://imdb8.p.rapidapi.com/title/v2/get-popular?first=5';
     const options = {
       method: 'GET',
       headers: {
