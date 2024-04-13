@@ -12,9 +12,11 @@ function App() {
   const handleInputChange = (event) => {
     const newQuery = event.target.value;
     setSearchQuery(newQuery);
-
+    if(newQuery === ''){
+      console.log("null")
+    }
     // Send IPC message to main process with the new text
-    window.electron.ipcRenderer.send('Query', newQuery);
+    window.electron.ipcRenderer.send(newQuery !== '' ? 'Query' : 'ping', newQuery);
   };
 
   //handle no search Query
@@ -37,6 +39,18 @@ function App() {
     }));
     console.log(data);
     setmovies(data);
+  });
+  window.electron.ipcRenderer.on("QueryResults", (event, message) => {
+    let data = JSON.parse(message);
+    data = data.d;
+    const moviesOnly = data.filter(item => item.qid === "movie");
+    data = moviesOnly.map(movie => ({
+      imageUrl: movie.i.imageUrl,
+      title: movie.l,
+      id: movie.id
+    }));
+    setmovies(data);
+    console.log(data)
   });
 
 

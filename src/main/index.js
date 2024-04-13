@@ -62,15 +62,31 @@ app.whenReady().then(() => {
         'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
       }
     };
-    ipcMain.on('Query', async (event, text) => {
-      console.log(text);
-    })
-
     try {
       const response = await fetch(url, options);
       const result = await response.text();
       console.log("1");
       mainWindow.webContents.send('pong', result);
+    } catch (error) {
+      console.error(error);
+    }
+  })
+  ipcMain.on('Query', async (event, query) => {
+    console.log(query);
+    const url = `https://imdb8.p.rapidapi.com/auto-complete?q=${query}`;
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '1d1f5568e4mshf3e6aa27f123ef4p16a5b1jsnfddd4ec246a5',
+        'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
+      }
+    };
+
+    try {
+      const response = await fetch(url, options);
+      const result = await response.text();
+      console.log(result);
+      mainWindow.webContents.send('QueryResults', result);
     } catch (error) {
       console.error(error);
     }
