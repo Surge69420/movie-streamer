@@ -11,7 +11,7 @@ function App() {
 
     // Setting up event listener to receive 'pong' message
     window.electron.ipcRenderer.on("pong", (event, message) => {
-      const { data: { movies : { edges } } } = JSON.parse(message);
+      const { data: { movies: { edges } } } = JSON.parse(message);
 
       const data = edges.map(edge => ({
         imageUrl: edge.node.primaryImage.url,
@@ -28,11 +28,18 @@ function App() {
     };
   }, []);
 
- 
-  
+
+
 
   return (
-    <>
+    <center>
+      <form action="">
+        <div className='search'>
+          <span class="search-icon material-symbols-outlined"> search
+          </span>
+          <input type="search" className='search-Input' placeholder='search' />
+        </div>
+      </form>
       <div className='movie-container'>
         {movies.map((movie, index) => (
           <LazyLoad key={movie.id}>
@@ -40,9 +47,9 @@ function App() {
             </div>
           </LazyLoad>
         ))}
-        
+
       </div>
-    </>
+    </center>
   )
 }
 
