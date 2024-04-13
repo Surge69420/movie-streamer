@@ -53,7 +53,7 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', async () => {
-    const url = 'https://imdb8.p.rapidapi.com/auto-complete?q=game%20of%20thr';
+    const url = 'https://imdb8.p.rapidapi.com/title/v2/get-popular?first=20';
     const options = {
       method: 'GET',
       headers: {
