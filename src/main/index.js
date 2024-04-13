@@ -3,9 +3,10 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+let mainWindow;
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
@@ -53,21 +54,22 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', async () => {
     const url = 'https://imdb8.p.rapidapi.com/auto-complete?q=game%20of%20thr';
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '1d1f5568e4mshf3e6aa27f123ef4p16a5b1jsnfddd4ec246a5',
-		'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
-	}
-};
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '1d1f5568e4mshf3e6aa27f123ef4p16a5b1jsnfddd4ec246a5',
+        'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
+      }
+    };
 
-try {
-	const response = await fetch(url, options);
-	const result = await response.text();
-	console.log(result);
-} catch (error) {
-	console.error(error);
-}
+    try {
+      const response = await fetch(url, options);
+      const result = await response.text();
+      console.log("1");
+      mainWindow.webContents.send('pong', result);
+    } catch (error) {
+      console.error(error);
+    }
   })
 
   createWindow()

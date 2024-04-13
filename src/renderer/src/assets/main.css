@@ -9,7 +9,10 @@ body {
   background-size: cover;
   user-select: none;
 }
-
+.thumbnail {
+  width: 200px; /* Set your desired width */
+  height: 300px; /* Set your desired height */
+}
 code {
   font-weight: 600;
   padding: 3px 5px;
