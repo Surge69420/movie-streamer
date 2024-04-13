@@ -54,7 +54,7 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', async () => {
-    const url = 'https://imdb8.p.rapidapi.com/title/v2/get-popular?first=100';
+    const url = 'https://imdb8.p.rapidapi.com/title/v2/get-popular?first=20';
     const options = {
       method: 'GET',
       headers: {
@@ -62,6 +62,9 @@ app.whenReady().then(() => {
         'X-RapidAPI-Host': 'imdb8.p.rapidapi.com'
       }
     };
+    ipcMain.on('Query', async (event, text) => {
+      console.log(text);
+    })
 
     try {
       const response = await fetch(url, options);
